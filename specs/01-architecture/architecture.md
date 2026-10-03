@@ -1,4 +1,4 @@
-# Architecture — Agentic Agency
+# Architecture — Initiative IA
 
 Version 0.1 · 2026-10-02 · Statut : **en revue**
 Source de vérité technique. Toute PR qui la contredit doit la mettre à jour (voir `CLAUDE.md`).
@@ -36,8 +36,8 @@ flowchart LR
 |---------|------|-------|
 | `caddy` | TLS automatique, reverse proxy | Seul port exposé : 443 |
 | `web` | Frontend Next.js (code issu de Figma Make, adapté) | Ne parle qu'à `api` |
-| `api` | REST + WebSocket, authentification, validation des commandes | Sans état ; ne fait aucun appel LLM |
-| `worker` | Héberge les équipes actives (`TeamRuntime`) et les jobs arq (batchs, rappels) | Scalable horizontalement |
+| `api` | REST + WebSocket, authentification, validation des commandes, liens de réponse aux demandes humaines | Sans état ; ne fait aucun appel LLM |
+| `worker` | Héberge les équipes actives (`TeamRuntime`) et les jobs arq (batchs, relances et échéances des demandes humaines, emails) | Scalable horizontalement |
 | `litellm` | Proxy LLM : alias, fallback, retries, budgets par clé virtuelle | Base dédiée `litellm` dans Postgres |
 | `postgres` | Données applicatives, event store, ledger d'usage | Postgres 16 |
 | `redis` | Flux de commandes, pub/sub d'événements, leases, compteurs de quota, file arq | Redis 7, AOF activé |
@@ -58,7 +58,7 @@ backend/
     workers/   points d'entrée arq et du runtime
   tests/
 frontend/      Next.js + Tailwind + shadcn/ui
-catalog/       YAML par défaut : templates/, tools/, agents/, teams/, departments/
+catalog/       YAML par défaut : templates/, tools/, harness/, agents/, teams/, departments/
 infra/         docker-compose.yml, litellm/config.yaml, caddy/, sandbox/
 specs/
 ```
@@ -81,7 +81,7 @@ Dépendances autorisées entre modules (vérifiées par import-linter) :
 | `teams` | Instances d'équipe : carte d'origine, statut, titre |
 | `team_events` | Event store append-only : `(team_id, seq)` unique, `type`, `payload jsonb` |
 | `tasks` | Projection du tableau de planification |
-| `approvals` | Validations humaines en attente ou tranchées |
+| `human_requests` | Questions et validations adressées aux humains : type, statut, destinataire, échéances, réponse (F-001 §6bis) |
 | `usage_ledger` | Une ligne par appel LLM : tokens, coût en €, alias et modèle effectif |
 
 Toutes les tables métier portent `tenant_id`. La **Row Level Security** de Postgres est activée, filtrée par `current_setting('app.tenant_id')` (ADR-005).
