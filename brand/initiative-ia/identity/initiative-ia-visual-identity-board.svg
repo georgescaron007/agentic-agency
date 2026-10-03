@@ -2,7 +2,7 @@
   <rect width="1600" height="1100" fill="#F8F7F4"/>
   <text x="70" y="78" fill="#6B7280" font-family="Inter, Arial, sans-serif" font-size="20" font-weight="700" letter-spacing="3">INITIATIVE IA - IDENTITE VISUELLE</text>
   <text x="70" y="145" fill="#0B2545" font-family="Plus Jakarta Sans, Inter, Arial, sans-serif" font-size="68" font-weight="800" letter-spacing="-2">IA utile. Impact mesurable.</text>
-  <text x="74" y="194" fill="#6B7280" font-family="Inter, Arial, sans-serif" font-size="25" font-weight="500">Applications IA, Akgents et adoption operationnelle pour transformer les processus metier.</text>
+  <text x="74" y="194" fill="#6B7280" font-family="Inter, Arial, sans-serif" font-size="25" font-weight="500">Applications IA, agents IA et adoption operationnelle pour transformer les processus metier.</text>
 
   <g transform="translate(78 280)">
     <text x="0" y="0" fill="#6B7280" font-family="Inter, Arial, sans-serif" font-size="18" font-weight="700" letter-spacing="2">01. LOGO PRINCIPAL</text>
@@ -82,7 +82,7 @@
     </g>
     <g transform="translate(564 42)">
       <rect width="250" height="86" rx="8" fill="#FFFFFF" stroke="#E5E7EB"/>
-      <text x="28" y="53" fill="#0B2545" font-family="Inter, Arial, sans-serif" font-size="24" font-weight="700">Akgents</text>
+      <text x="28" y="53" fill="#0B2545" font-family="Inter, Arial, sans-serif" font-size="24" font-weight="700">Agents IA</text>
     </g>
     <g transform="translate(846 42)">
       <rect width="250" height="86" rx="8" fill="#FFFFFF" stroke="#E5E7EB"/>

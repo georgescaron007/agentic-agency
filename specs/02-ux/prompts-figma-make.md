@@ -5,7 +5,7 @@ Version 0.2 · 2026-10-03
 
 ## Mode d'emploi
 - **Un seul projet Figma Make** contenant les deux applications, sur deux zones de routes : `/app/...` (espace client) et `/admin/...` (back-office). Le système de design est ainsi partagé et le code revient en un seul bloc.
-- Joindre dès le prompt P0 : `contrat-donnees.ts`, le logo `brand/initiative-ia/logo/initiative-ia-logo-primary.svg`et l'icône `initiative-ia-logo-icon.svg` (ne pas joindre la planche d'identité ni le brand book : ils contiennent un terme de marque à ne pas utiliser dans la plateforme). Joindre `brief-ux.md` aussi si Figma Make accepte les fichiers.
+- Joindre dès le prompt P0 : `contrat-donnees.ts`, le logo `brand/initiative-ia/logo/initiative-ia-logo-primary.svg`, l'icône `initiative-ia-logo-icon.svg` et la planche `brand/initiative-ia/identity/initiative-ia-visual-identity-board.svg`. Joindre `brief-ux.md` aussi si Figma Make accepte les fichiers.
 - Avancer **un prompt à la fois** et vérifier le résultat avant de passer au suivant. Les petites corrections se font par messages courts (« la carte de validation doit montrer le badge de risque en haut à droite »).
 - Si un écran dérive du brief, corriger tout de suite : plus on avance, plus il est coûteux de rattraper.
 
@@ -27,7 +27,7 @@ Contraintes techniques :
 - interface en français, libellés regroupés dans un fichier de traductions (fr par défaut) ;
 - mode clair et mode sombre.
 
-Identité visuelle Initiative IA :
+Identité visuelle Initiative IA (voir la planche jointe) :
 - couleurs de marque : bleu encre #0B2545 (texte principal, structure, boutons primaires), blanc chaud #F8F7F4 (fond de page), blanc #FFFFFF (cartes), bleu vert #14B8A6 (accent, progression, agent actif), lime doux #A3E635 (signal positif ponctuel uniquement, jamais pour du texte), bleu action #3B82F6 (liens, focus, sélection), graphite #6B7280 (texte secondaire), bordures #E5E7EB ;
 - proportions : surtout du blanc chaud, bleu encre pour la structure, bleu vert en accent ;
 - couleurs sémantiques réservées aux états : attente d'une réponse humaine ambre #F59E0B ; niveaux de risque read graphite, write_internal bleu action, write_external orange #F97316, irreversible rouge #DC2626 ;
