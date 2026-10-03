@@ -36,7 +36,7 @@ Aucun agent métier n'est défini ici. Les agents Tech Lead, Dev Backend et QA r
 | `Department` | Regroupement d'AgentCards, utilisé pour l'interface et les droits |
 | `TeamCard` | Composition d'une équipe : membres, point d'entrée, validations, budget (§4.2) |
 | Équipe (instance) | Exécution d'une TeamCard pour un tenant, avec son journal |
-| Agent (instance) | Acteur vivant issu d'une AgentCard, nommé `@{role}` ou `@{role}-{n}` ; appelé **Akgent** dans l'interface |
+| Agent (instance) | Acteur vivant issu d'une AgentCard, nommé `@{role}` ou `@{role}-{n}`  |
 | Conversation | Sujet de discussion entre humains et équipe ; regroupe les messages, tâches, demandes et fichiers qui en découlent |
 | `AgentMessage` | Message typé échangé (§5) |
 | Événement | Fait journalisé, immuable (§9) |

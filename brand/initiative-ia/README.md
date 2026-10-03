@@ -1,5 +1,8 @@
 # Initiative IA - Fichiers de reference
 
+> **Usage dans la plateforme Initiative IA (décision du 2026-10-03)** : le terme de marque propriétaire décrit dans ce document (§5) **n'est pas utilisé** dans la plateforme — ni dans l'interface, ni dans les specs, ni dans les prompts. On y parle simplement d'« agents ». Seuls le logo, la palette, la typographie et le système visuel s'appliquent.
+
+
 Le logo valide est le monogramme **I + A** choisi dans la piece jointe utilisateur.  
 Ne pas utiliser l'ancienne piste composee uniquement du `I`.
 

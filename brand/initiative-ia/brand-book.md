@@ -1,5 +1,8 @@
 # Initiative IA - Brand Book
 
+> **Usage dans la plateforme Initiative IA (décision du 2026-10-03)** : le terme de marque propriétaire décrit dans ce document (§5) **n'est pas utilisé** dans la plateforme — ni dans l'interface, ni dans les specs, ni dans les prompts. On y parle simplement d'« agents ». Seuls le logo, la palette, la typographie et le système visuel s'appliquent.
+
+
 ## 1. Essence de Marque
 
 Initiative IA est une agence IA orientee business, creation d'applications et adoption operationnelle. La marque s'adresse aux dirigeants, DSI, responsables operations et equipes metier qui veulent passer de l'experimentation IA a des resultats mesurables.

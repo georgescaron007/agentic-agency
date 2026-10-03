@@ -1,6 +1,6 @@
 /**
  * Contrat de données de l'interface — Initiative IA
- * Version 0.2 · 2026-10-03 (conversations, marque blanche, nommage des Akgents)
+ * Version 0.2 · 2026-10-03 (conversations, marque blanche, nommage des agents)
  *
  * Source : specs/features/F-001-moteur-equipe/spec.md v0.2 (§4, §5, §6bis, §9, §11).
  * À fournir à Figma Make : les composants reçoivent ces types en props.
@@ -48,7 +48,7 @@ export interface User {
 export type TeamStatus = "running" | "stopped" | "deleted";
 export type AgentStatus = "working" | "waiting_human" | "idle" | "paused" | "error";
 
-/** Akgent (terme de marque pour un agent IA) */
+/** Agent IA */
 export interface Agent {
   name: string; // "@lina" (identifiant technique stable)
   firstName: string; // "Lina" (affiché seulement si agentNaming = "first_name_and_role")
@@ -74,7 +74,7 @@ export type AgentNaming = "first_name_and_role" | "role_only";
 
 /** Libellé à afficher selon le réglage de la suite */
 export function agentLabel(agent: Agent, naming: AgentNaming): string {
-  return naming === "first_name_and_role" ? `${agent.firstName} · ${agent.role}` : `Akgent ${agent.role}`;
+  return naming === "first_name_and_role" ? `${agent.firstName} · ${agent.role}` : `Agent ${agent.role}`;
 }
 
 export interface Branding {
@@ -108,9 +108,9 @@ export interface Conversation {
   id: UUID;
   teamId: UUID;
   title: string; // généré automatiquement, modifiable
-  kind: "team" | "direct"; // à l'équipe (via le coordinateur) ou directe avec un Akgent
+  kind: "team" | "direct"; // à l'équipe (via le coordinateur) ou directe avec un agent
   directAgent?: string; // si kind = "direct"
-  participants: string[]; // Akgents impliqués, ex. ["@lina", "@hugo"]
+  participants: string[]; // agents impliqués, ex. ["@lina", "@hugo"]
   createdBy: UUID;
   createdAt: ISODateTime;
   lastMessageAt: ISODateTime;
@@ -345,7 +345,7 @@ export const mockSuite: Suite = {
   branding: { clientName: "Dupont & Associés", showPoweredBy: true },
   agentNaming: "first_name_and_role",
   enabledViews: ["conversations", "tasks", "documents", "activity"],
-  welcomeMessage: "Bonjour ! Vos Akgents commerciaux sont prêts. Confiez-lui une prospection, une proposition ou un suivi.",
+  welcomeMessage: "Bonjour ! Vos agents commerciaux sont prêts. Confiez-leur une prospection, une proposition ou un suivi.",
   suggestedPrompts: [
     "Prépare une proposition pour Dupont SA à partir du dernier échange",
     "Liste les 10 prospects à relancer cette semaine",
