@@ -1,4 +1,4 @@
-# Agentic Agency — dépôt de spécifications
+# Initiative IA — dépôt de spécifications
 
 Plateforme d'agence web IA multi-agents, multi-tenant, hébergée en UE (Scaleway).
 Méthode : **Spec-Driven Development (SDD)**, suivant la synthèse des séminaires Yuma d'avril 2026.
@@ -17,6 +17,7 @@ specs/
       spec.md        QUOI : comportement, contrats, critères d'acceptation
       decisions.md   questions ouvertes à arbitrer par un humain
       plan.md        COMMENT : créé uniquement après validation de spec.md
+brand/initiative-ia/ brand book, logos, planche d'identité
 CLAUDE.md            règles de travail pour Claude Code sur le VPS
 ```
 

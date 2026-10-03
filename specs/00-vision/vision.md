@@ -1,6 +1,8 @@
-# Vision produit — Agentic Agency
+# Vision produit — Initiative IA
 
 Version 0.2 · 2026-10-03 · Statut : **en revue**
+
+Nom du produit : **Initiative IA**. Les agents sont appelés **Akgents** (« Akgents, nos agents IA collaboratifs »), terme propriétaire défini dans `brand/initiative-ia/brand-book.md`. Les espaces clients sont en marque blanche (logo du client).
 
 ## 1. Problème
 Les PME (10 à 25 personnes) veulent « faire de l'IA » mais ne savent pas par où commencer. Les outils actuels sont des assistants individuels : chacun les utilise dans son coin, rien n'est intégré aux processus de l'entreprise, rien n'est tracé, et rien ne s'améliore collectivement.

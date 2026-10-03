@@ -1,0 +1,102 @@
+<svg width="1600" height="1100" viewBox="0 0 1600 1100" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="1600" height="1100" fill="#F8F7F4"/>
+  <text x="70" y="78" fill="#6B7280" font-family="Inter, Arial, sans-serif" font-size="20" font-weight="700" letter-spacing="3">INITIATIVE IA - IDENTITE VISUELLE</text>
+  <text x="70" y="145" fill="#0B2545" font-family="Plus Jakarta Sans, Inter, Arial, sans-serif" font-size="68" font-weight="800" letter-spacing="-2">IA utile. Impact mesurable.</text>
+  <text x="74" y="194" fill="#6B7280" font-family="Inter, Arial, sans-serif" font-size="25" font-weight="500">Applications IA, Akgents et adoption operationnelle pour transformer les processus metier.</text>
+
+  <g transform="translate(78 280)">
+    <text x="0" y="0" fill="#6B7280" font-family="Inter, Arial, sans-serif" font-size="18" font-weight="700" letter-spacing="2">01. LOGO PRINCIPAL</text>
+    <g transform="translate(0 58)">
+      <rect x="0" y="0" width="58" height="174" rx="29" fill="#0B2545"/>
+      <path d="M82 41C82 30.4 90.4 22 101 22H124C139 22 152.5 31 158.2 44.9L214 174H163L120 72V174H82V41Z" fill="#0B2545"/>
+      <path d="M82 87L120 174H82V87Z" fill="#14B8A6"/>
+      <text x="285" y="121" fill="#0B2545" font-family="Plus Jakarta Sans, Inter, Arial, sans-serif" font-size="82" font-weight="800" letter-spacing="-2.5">Initiative IA</text>
+    </g>
+  </g>
+
+  <g transform="translate(1010 280)">
+    <text x="0" y="0" fill="#6B7280" font-family="Inter, Arial, sans-serif" font-size="18" font-weight="700" letter-spacing="2">02. VARIANTES</text>
+    <rect x="0" y="58" width="150" height="150" rx="28" fill="#FFFFFF" stroke="#E5E7EB"/>
+    <g transform="translate(35 91) scale(.45)">
+      <rect x="0" y="0" width="58" height="174" rx="29" fill="#0B2545"/>
+      <path d="M82 41C82 30.4 90.4 22 101 22H124C139 22 152.5 31 158.2 44.9L214 174H163L120 72V174H82V41Z" fill="#0B2545"/>
+      <path d="M82 87L120 174H82V87Z" fill="#14B8A6"/>
+    </g>
+    <rect x="180" y="58" width="150" height="150" rx="28" fill="#0B2545"/>
+    <g transform="translate(215 91) scale(.45)">
+      <rect x="0" y="0" width="58" height="174" rx="29" fill="#F8F7F4"/>
+      <path d="M82 41C82 30.4 90.4 22 101 22H124C139 22 152.5 31 158.2 44.9L214 174H163L120 72V174H82V41Z" fill="#F8F7F4"/>
+      <path d="M82 87L120 174H82V87Z" fill="#14B8A6"/>
+    </g>
+    <rect x="360" y="58" width="150" height="150" rx="28" fill="#FFFFFF" stroke="#E5E7EB"/>
+    <g transform="translate(395 91) scale(.45)">
+      <rect x="0" y="0" width="58" height="174" rx="29" fill="#0B2545"/>
+      <path d="M82 41C82 30.4 90.4 22 101 22H124C139 22 152.5 31 158.2 44.9L214 174H163L120 72V174H82V41Z" fill="#0B2545"/>
+      <path d="M82 87L120 174H82V87Z" fill="#0B2545"/>
+    </g>
+  </g>
+
+  <g transform="translate(78 575)">
+    <text x="0" y="0" fill="#6B7280" font-family="Inter, Arial, sans-serif" font-size="18" font-weight="700" letter-spacing="2">03. COULEURS</text>
+    <g transform="translate(0 44)">
+      <rect x="0" y="0" width="150" height="120" rx="8" fill="#0B2545"/>
+      <text x="0" y="158" fill="#0B2545" font-family="Inter, Arial, sans-serif" font-size="22" font-weight="700">Bleu encre</text>
+      <text x="0" y="190" fill="#6B7280" font-family="Inter, Arial, sans-serif" font-size="18">#0B2545</text>
+    </g>
+    <g transform="translate(185 44)">
+      <rect x="0" y="0" width="150" height="120" rx="8" fill="#14B8A6"/>
+      <text x="0" y="158" fill="#0B2545" font-family="Inter, Arial, sans-serif" font-size="22" font-weight="700">Bleu vert</text>
+      <text x="0" y="190" fill="#6B7280" font-family="Inter, Arial, sans-serif" font-size="18">#14B8A6</text>
+    </g>
+    <g transform="translate(370 44)">
+      <rect x="0" y="0" width="150" height="120" rx="8" fill="#A3E635"/>
+      <text x="0" y="158" fill="#0B2545" font-family="Inter, Arial, sans-serif" font-size="22" font-weight="700">Lime doux</text>
+      <text x="0" y="190" fill="#6B7280" font-family="Inter, Arial, sans-serif" font-size="18">#A3E635</text>
+    </g>
+    <g transform="translate(555 44)">
+      <rect x="0" y="0" width="150" height="120" rx="8" fill="#3B82F6"/>
+      <text x="0" y="158" fill="#0B2545" font-family="Inter, Arial, sans-serif" font-size="22" font-weight="700">Bleu action</text>
+      <text x="0" y="190" fill="#6B7280" font-family="Inter, Arial, sans-serif" font-size="18">#3B82F6</text>
+    </g>
+    <g transform="translate(740 44)">
+      <rect x="0" y="0" width="150" height="120" rx="8" fill="#6B7280"/>
+      <text x="0" y="158" fill="#0B2545" font-family="Inter, Arial, sans-serif" font-size="22" font-weight="700">Graphite</text>
+      <text x="0" y="190" fill="#6B7280" font-family="Inter, Arial, sans-serif" font-size="18">#6B7280</text>
+    </g>
+    <g transform="translate(925 44)">
+      <rect x="0" y="0" width="150" height="120" rx="8" fill="#FFFFFF" stroke="#E5E7EB"/>
+      <text x="0" y="158" fill="#0B2545" font-family="Inter, Arial, sans-serif" font-size="22" font-weight="700">Blanc chaud</text>
+      <text x="0" y="190" fill="#6B7280" font-family="Inter, Arial, sans-serif" font-size="18">#F8F7F4</text>
+    </g>
+  </g>
+
+  <g transform="translate(78 890)">
+    <text x="0" y="0" fill="#6B7280" font-family="Inter, Arial, sans-serif" font-size="18" font-weight="700" letter-spacing="2">04. PILIERS</text>
+    <g transform="translate(0 42)">
+      <rect width="250" height="86" rx="8" fill="#FFFFFF" stroke="#E5E7EB"/>
+      <text x="28" y="53" fill="#0B2545" font-family="Inter, Arial, sans-serif" font-size="24" font-weight="700">Strategie IA</text>
+    </g>
+    <g transform="translate(282 42)">
+      <rect width="250" height="86" rx="8" fill="#FFFFFF" stroke="#E5E7EB"/>
+      <text x="28" y="53" fill="#0B2545" font-family="Inter, Arial, sans-serif" font-size="24" font-weight="700">Applications IA</text>
+    </g>
+    <g transform="translate(564 42)">
+      <rect width="250" height="86" rx="8" fill="#FFFFFF" stroke="#E5E7EB"/>
+      <text x="28" y="53" fill="#0B2545" font-family="Inter, Arial, sans-serif" font-size="24" font-weight="700">Akgents</text>
+    </g>
+    <g transform="translate(846 42)">
+      <rect width="250" height="86" rx="8" fill="#FFFFFF" stroke="#E5E7EB"/>
+      <text x="28" y="53" fill="#0B2545" font-family="Inter, Arial, sans-serif" font-size="24" font-weight="700">Adoption</text>
+    </g>
+  </g>
+
+  <g transform="translate(1190 575)">
+    <text x="0" y="0" fill="#6B7280" font-family="Inter, Arial, sans-serif" font-size="18" font-weight="700" letter-spacing="2">05. TYPOGRAPHIE</text>
+    <text x="0" y="96" fill="#0B2545" font-family="Plus Jakarta Sans, Inter, Arial, sans-serif" font-size="92" font-weight="800">Aa</text>
+    <text x="0" y="142" fill="#0B2545" font-family="Inter, Arial, sans-serif" font-size="25" font-weight="700">Plus Jakarta Sans</text>
+    <text x="0" y="178" fill="#6B7280" font-family="Inter, Arial, sans-serif" font-size="19">Titres et accroches</text>
+    <text x="0" y="270" fill="#0B2545" font-family="Inter, Arial, sans-serif" font-size="92" font-weight="700">Aa</text>
+    <text x="0" y="316" fill="#0B2545" font-family="Inter, Arial, sans-serif" font-size="25" font-weight="700">Inter</text>
+    <text x="0" y="352" fill="#6B7280" font-family="Inter, Arial, sans-serif" font-size="19">Textes et interface</text>
+  </g>
+</svg>

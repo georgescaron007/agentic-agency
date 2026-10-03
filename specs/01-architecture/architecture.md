@@ -1,4 +1,4 @@
-# Architecture — Agentic Agency
+# Architecture — Initiative IA
 
 Version 0.1 · 2026-10-02 · Statut : **en revue**
 Source de vérité technique. Toute PR qui la contredit doit la mettre à jour (voir `CLAUDE.md`).

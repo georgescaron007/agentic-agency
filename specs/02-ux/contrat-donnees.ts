@@ -1,6 +1,6 @@
 /**
- * Contrat de données de l'interface — Agentic Agency
- * Version 0.1 · 2026-10-03
+ * Contrat de données de l'interface — Initiative IA
+ * Version 0.2 · 2026-10-03 (conversations, marque blanche, nommage des Akgents)
  *
  * Source : specs/features/F-001-moteur-equipe/spec.md v0.2 (§4, §5, §6bis, §9, §11).
  * À fournir à Figma Make : les composants reçoivent ces types en props.
@@ -48,9 +48,10 @@ export interface User {
 export type TeamStatus = "running" | "stopped" | "deleted";
 export type AgentStatus = "working" | "waiting_human" | "idle" | "paused" | "error";
 
+/** Akgent (terme de marque pour un agent IA) */
 export interface Agent {
-  name: string; // "@lina"
-  displayName: string; // "Lina"
+  name: string; // "@lina" (identifiant technique stable)
+  firstName: string; // "Lina" (affiché seulement si agentNaming = "first_name_and_role")
   role: string; // "Prospection"
   cardKey: string; // "prospection"
   department: string;
@@ -69,19 +70,66 @@ export interface ToolSummary {
   policy: ToolPolicy;
 }
 
+export type AgentNaming = "first_name_and_role" | "role_only";
+
+/** Libellé à afficher selon le réglage de la suite */
+export function agentLabel(agent: Agent, naming: AgentNaming): string {
+  return naming === "first_name_and_role" ? `${agent.firstName} · ${agent.role}` : `Akgent ${agent.role}`;
+}
+
+export interface Branding {
+  clientName: string; // "Dupont & Associés"
+  logoLightUrl?: string;
+  logoDarkUrl?: string;
+  accentColor?: string; // choisie dans une palette contrôlée
+  showPoweredBy: boolean; // « Propulsé par Initiative IA »
+}
+
 export interface Suite {
   id: UUID; // id de l'équipe instanciée
   tenantId: UUID;
   name: string; // "Suite Commerciale"
   templateKey: string; // "commercial"
   status: TeamStatus;
-  entryPoint: string; // "@lina"
+  entryPoint: string; // "@lina" (coordinateur, reçoit les messages adressés à l'équipe)
   agents: Agent[];
   humans: User[];
-  enabledViews: Array<"feed" | "tasks" | "documents" | "activity">;
+  branding: Branding;
+  agentNaming: AgentNaming;
+  enabledViews: Array<"conversations" | "tasks" | "documents" | "activity">;
   welcomeMessage?: string;
   suggestedPrompts: string[];
   lastActivityAt: ISODateTime;
+}
+
+// ─────────────────────────────── Conversations ───────────────────────────────
+
+export interface Conversation {
+  id: UUID;
+  teamId: UUID;
+  title: string; // généré automatiquement, modifiable
+  kind: "team" | "direct"; // à l'équipe (via le coordinateur) ou directe avec un Akgent
+  directAgent?: string; // si kind = "direct"
+  participants: string[]; // Akgents impliqués, ex. ["@lina", "@hugo"]
+  createdBy: UUID;
+  createdAt: ISODateTime;
+  lastMessageAt: ISODateTime;
+  hasPendingRequest: boolean; // point ambre
+  hasNewDeliverable: boolean; // triangle bleu vert
+}
+
+/** Bloc « Travail en cours » : agrégé côté API à partir des événements (F-001 §9) */
+export interface WorkInProgress {
+  conversationId: UUID;
+  status: "running" | "done" | "stopped" | "error";
+  startedAt: ISODateTime;
+  items: Array<{
+    agent: string;
+    label: string; // "rédige la proposition", "consulte le CRM"
+    currentTool?: string;
+    step: number;
+    state: "working" | "waiting_human" | "done" | "error";
+  }>;
 }
 
 // ─────────────────────────────── Messages ───────────────────────────────
@@ -97,6 +145,7 @@ export interface Attachment {
 export interface AgentMessage {
   id: UUID;
   teamId: UUID;
+  conversationId: UUID;
   sender: string; // "@lina" ou "@human"
   senderUserId?: UUID; // si sender = "@human"
   recipients: string[];
@@ -125,6 +174,7 @@ export type Decision = "approve" | "reject" | "edit_and_approve";
 interface HumanRequestBase {
   id: UUID;
   teamId: UUID;
+  conversationId: UUID;
   suiteName: string;
   agent: string; // "@lina"
   type: HumanRequestType;
@@ -292,8 +342,10 @@ export const mockSuite: Suite = {
   status: "running",
   entryPoint: "@lina",
   humans: mockUsers,
-  enabledViews: ["feed", "tasks", "documents", "activity"],
-  welcomeMessage: "Bonjour ! Votre équipe commerciale est prête. Confiez-lui une prospection, une proposition ou un suivi.",
+  branding: { clientName: "Dupont & Associés", showPoweredBy: true },
+  agentNaming: "first_name_and_role",
+  enabledViews: ["conversations", "tasks", "documents", "activity"],
+  welcomeMessage: "Bonjour ! Vos Akgents commerciaux sont prêts. Confiez-lui une prospection, une proposition ou un suivi.",
   suggestedPrompts: [
     "Prépare une proposition pour Dupont SA à partir du dernier échange",
     "Liste les 10 prospects à relancer cette semaine",
@@ -302,7 +354,7 @@ export const mockSuite: Suite = {
   lastActivityAt: "2026-10-03T14:12:00Z",
   agents: [
     {
-      name: "@lina", displayName: "Lina", role: "Coordination commerciale", cardKey: "coordination",
+      name: "@lina", firstName: "Lina", role: "Coordination commerciale", cardKey: "coordination",
       department: "commercial", description: "Reçoit vos demandes, répartit le travail et vous rend compte.",
       color: "#6366F1", status: "waiting_human", autonomyLevel: "supervised", creditsThisMonth: 1_240_000,
       tools: [
@@ -311,7 +363,7 @@ export const mockSuite: Suite = {
       ],
     },
     {
-      name: "@hugo", displayName: "Hugo", role: "Rédaction de propositions", cardKey: "redaction",
+      name: "@hugo", firstName: "Hugo", role: "Rédaction de propositions", cardKey: "redaction",
       department: "commercial", description: "Rédige propositions, devis et emails.",
       color: "#0EA5E9", status: "working", autonomyLevel: "supervised", creditsThisMonth: 3_870_000,
       tools: [
@@ -320,7 +372,7 @@ export const mockSuite: Suite = {
       ],
     },
     {
-      name: "@nora", displayName: "Nora", role: "Suivi CRM", cardKey: "crm",
+      name: "@nora", firstName: "Nora", role: "Suivi CRM", cardKey: "crm",
       department: "commercial", description: "Met à jour le CRM et prépare les relances.",
       color: "#10B981", status: "idle", autonomyLevel: "strict", creditsThisMonth: 610_000,
       tools: [
@@ -333,18 +385,18 @@ export const mockSuite: Suite = {
 
 export const mockMessages: AgentMessage[] = [
   {
-    id: "m-01", teamId: "team-commercial-01", sender: "@human", senderUserId: "u-02", recipients: ["@lina"],
+    id: "m-01", teamId: "team-commercial-01", conversationId: "conv-01", sender: "@human", senderUserId: "u-02", recipients: ["@lina"],
     intent: "request", content: "Prépare une proposition pour Dupont SA à partir de notre dernier échange.",
     attachments: [], createdAt: "2026-10-03T13:58:00Z",
   },
   {
-    id: "m-02", teamId: "team-commercial-01", sender: "@lina", recipients: ["@human"], intent: "acknowledgment",
+    id: "m-02", teamId: "team-commercial-01", conversationId: "conv-01", sender: "@lina", recipients: ["@human"], intent: "acknowledgment",
     content: "Bien reçu Sophie. Je confie la rédaction à Hugo et je reviens vers vous si un point est ambigu.",
     attachments: [], inReplyTo: "m-01", taskId: "task-01", createdAt: "2026-10-03T13:58:20Z",
     trace: { steps: 3, tools: [{ key: "create_task", durationMs: 40, ok: true }], credits: 18_400, durationMs: 6_200 },
   },
   {
-    id: "m-03", teamId: "team-commercial-01", sender: "@lina", recipients: ["@hugo"], intent: "instruction",
+    id: "m-03", teamId: "team-commercial-01", conversationId: "conv-01", sender: "@lina", recipients: ["@hugo"], intent: "instruction",
     content: "Rédige une proposition commerciale pour Dupont SA. Base-toi sur le compte rendu du 28/09 joint.",
     attachments: [{ path: "inputs/cr-dupont-2809.md", description: "Compte rendu de réunion" }],
     taskId: "task-01", createdAt: "2026-10-03T13:58:25Z",
@@ -353,7 +405,7 @@ export const mockMessages: AgentMessage[] = [
 
 export const mockRequests: HumanRequest[] = [
   {
-    id: "hr-01", teamId: "team-commercial-01", suiteName: "Suite Commerciale", agent: "@lina", type: "question",
+    id: "hr-01", teamId: "team-commercial-01", conversationId: "conv-01", suiteName: "Suite Commerciale", agent: "@lina", type: "question",
     status: "pending", assignees: ["u-02"], urgency: "normal", createdAt: "2026-10-03T14:05:00Z",
     dueAt: "2026-10-05T14:05:00Z", remindersSent: 0, taskId: "task-01",
     question: "Quelle remise appliquer pour Dupont SA ?",
@@ -362,7 +414,7 @@ export const mockRequests: HumanRequest[] = [
     blocking: true,
   },
   {
-    id: "hr-02", teamId: "team-commercial-01", suiteName: "Suite Commerciale", agent: "@hugo", type: "tool_approval",
+    id: "hr-02", teamId: "team-commercial-01", conversationId: "conv-02", suiteName: "Suite Commerciale", agent: "@hugo", type: "tool_approval",
     status: "pending", assignees: ["u-01"], urgency: "high", createdAt: "2026-10-03T14:10:00Z",
     dueAt: "2026-10-04T14:10:00Z", remindersSent: 1, taskId: "task-02",
     tool: { key: "send_email", label: "Envoyer un email", risk: "irreversible", policy: "ask" },
@@ -395,5 +447,34 @@ export const mockUsage: UsageSummary = {
     { agent: "@hugo", suiteId: "team-commercial-01", credits: 3_870_000 },
     { agent: "@lina", suiteId: "team-commercial-01", credits: 1_240_000 },
     { agent: "@nora", suiteId: "team-commercial-01", credits: 610_000 },
+  ],
+};
+
+export const mockConversations: Conversation[] = [
+  {
+    id: "conv-01", teamId: "team-commercial-01", title: "Proposition Dupont SA", kind: "team",
+    participants: ["@lina", "@hugo", "@nora"], createdBy: "u-02", createdAt: "2026-10-03T13:58:00Z",
+    lastMessageAt: "2026-10-03T14:05:00Z", hasPendingRequest: true, hasNewDeliverable: false,
+  },
+  {
+    id: "conv-02", teamId: "team-commercial-01", title: "Envoi de la proposition à M. Leroy", kind: "direct",
+    directAgent: "@hugo", participants: ["@hugo"], createdBy: "u-01", createdAt: "2026-10-03T14:08:00Z",
+    lastMessageAt: "2026-10-03T14:10:00Z", hasPendingRequest: true, hasNewDeliverable: true,
+  },
+  {
+    id: "conv-03", teamId: "team-commercial-01", title: "Prospects à relancer cette semaine", kind: "team",
+    participants: ["@lina", "@nora"], createdBy: "u-02", createdAt: "2026-10-01T09:12:00Z",
+    lastMessageAt: "2026-10-01T09:40:00Z", hasPendingRequest: false, hasNewDeliverable: false,
+  },
+];
+
+export const mockWorkInProgress: WorkInProgress = {
+  conversationId: "conv-01",
+  status: "running",
+  startedAt: "2026-10-03T13:58:25Z",
+  items: [
+    { agent: "@hugo", label: "rédige la proposition", currentTool: "write_file", step: 3, state: "working" },
+    { agent: "@nora", label: "vérifie l'historique CRM de Dupont SA", step: 2, state: "done" },
+    { agent: "@lina", label: "attend votre réponse sur la remise", step: 4, state: "waiting_human" },
   ],
 };

@@ -2,6 +2,7 @@
 
 Version 0.2 · 2026-10-03 · Statut : **en revue**
 v0.2 : ajout du harnais configurable par agent (§4.5) et de l'humain dans la boucle (§6bis).
+v0.2.1 : ajout des conversations (`conversation_id`) pour l'interface de chat (brief UX §6.3).
 Dépend de : architecture.md, ADR-001 à ADR-006. Décisions ouvertes : `decisions.md` (D1 à D8).
 
 ## 1. Objectif
@@ -35,7 +36,8 @@ Aucun agent métier n'est défini ici. Les agents Tech Lead, Dev Backend et QA r
 | `Department` | Regroupement d'AgentCards, utilisé pour l'interface et les droits |
 | `TeamCard` | Composition d'une équipe : membres, point d'entrée, validations, budget (§4.2) |
 | Équipe (instance) | Exécution d'une TeamCard pour un tenant, avec son journal |
-| Agent (instance) | Acteur vivant issu d'une AgentCard, nommé `@{role}` ou `@{role}-{n}` |
+| Agent (instance) | Acteur vivant issu d'une AgentCard, nommé `@{role}` ou `@{role}-{n}` ; appelé **Akgent** dans l'interface |
+| Conversation | Sujet de discussion entre humains et équipe ; regroupe les messages, tâches, demandes et fichiers qui en découlent |
 | `AgentMessage` | Message typé échangé (§5) |
 | Événement | Fait journalisé, immuable (§9) |
 
@@ -240,6 +242,7 @@ class AgentMessage(BaseModel):
     content: str = Field(min_length=1, max_length=50_000)
     attachments: list[Attachment] = []
     in_reply_to: UUID | None = None
+    conversation_id: UUID          # conversation d'origine (sujet) ; propagé aux messages entre agents qui en découlent
     task_id: UUID | None = None
     created_at: datetime
 ```
@@ -443,7 +446,9 @@ Utilisée par l'API (F-005). Aucune dépendance HTTP.
 | Commande | Entrée | Effet |
 |----------|--------|-------|
 | `create_team` | `tenant_id`, `team_card_key`, `title` | Crée l'équipe, instancie les membres `count > 0`, statut `running` |
-| `send_human_message` | `team_id`, `content`, `recipients?`, `attachments?` | Message de `@human` (vers `entry_point` par défaut) |
+| `create_conversation` | `team_id`, `user_id`, `kind` (team, direct), `direct_agent?`, `title?` | Crée une conversation ; titre généré par `ak-light` après le premier message si absent |
+| `send_human_message` | `team_id`, `conversation_id`, `content`, `recipients?`, `attachments?` | Message de `@human` (vers `entry_point` pour une conversation d'équipe, vers l'agent pour une conversation directe) |
+| `stop_conversation_work` | `conversation_id` | Interrompt les tours en cours liés à la conversation (bouton « Arrêter ») |
 | `answer_human_request` | `request_id`, `user_id`, `answer?`, `option?`, `decision?` (approve, reject, edit_and_approve), `edited_payload?`, `comment?` | Clôt la demande et délivre la réponse ou applique la décision (§6bis.2) |
 | `cancel_human_request` | `request_id`, `reason` | Annule une demande devenue sans objet |
 | `stop_team` | `team_id` | Termine les tours en cours puis passe en `stopped` |
@@ -461,6 +466,7 @@ Statuts d'équipe : `running` ↔ `stopped`, puis `deleted`. Une équipe `runnin
 | `team.created` / `team.stopped` / `team.resumed` / `team.deleted` | carte et version, auteur |
 | `agent.hired` / `agent.fired` | nom, rôle, par qui, raison, harnais effectif et empreinte |
 | `agent.harness_changed` | agent, ancienne et nouvelle empreinte, diff, auteur |
+| `conversation.created` / `conversation.renamed` | id, type, agent direct, titre, auteur |
 | `message.sent` | `AgentMessage` complet |
 | `human_request.created` / `.reminded` / `.answered` / `.escalated` / `.expired` / `.cancelled` | type, agent, destinataire, canal, contenu, réponse ou décision, auteur, payload modifié éventuel |
 | `guardrail.triggered` | agent, garde-fou, point d'accroche, motif |
@@ -566,6 +572,7 @@ Un appel qui dépasse une limite **attend** dans une file (sémaphore Redis par 
 | AC-20 | Une configuration de harnais qui dépasse un plafond §4.5.4 est refusée à la publication avec un message explicite. |
 | AC-21 | Au-delà de `max_open_requests`, `ask_human` est refusé avec une erreur exploitable par le modèle. |
 | AC-22 | Une réponse donnée sur un canal clôt la demande sur tous les autres ; le lien email est à usage unique et expire avec la demande. |
+| AC-23 | Tout message, tâche et demande humaine née d'un message humain porte le `conversation_id` d'origine, y compris à travers les échanges entre agents ; `stop_conversation_work` interrompt uniquement les tours liés à cette conversation. |
 
 ## 14. Hors périmètre
 Exécution de code et GitHub (F-002) ; comptes, forfaits et facturation (F-003) ; agents métier (F-004) ; API HTTP et interface (F-005) ; snapshots d'event store ; rewind de contexte ; recherche sémantique dans le planning.
