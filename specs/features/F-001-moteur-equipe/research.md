@@ -7,7 +7,7 @@
 | Concept Akgentic | Reprise | Adaptation chez nous |
 |------------------|---------|----------------------|
 | Acteurs Pykka (threads) | Modèle acteur, une boîte aux lettres par agent | Acteurs asyncio (ADR-003) |
-| `AgentCard` (rôle, skills, prompt, `routes_to`) | Oui | Ajout de `department`, `model` (alias), `limits`, `can_hire`, `max_instances` |
+| `AgentCard` (rôle, skills, prompt, `routes_to`) | Oui | Ajout de `department`, `harness_profile` + surcharges (harnais configurable), `can_hire`, `max_instances` |
 | `TeamCard` (agents, point d'entrée, superviseurs) | Oui | Ajout de `approval_gates` et `budget` |
 | Catalogues Template / Tool / Agent / Team, validation croisée | Oui | + `Department` ; stockage YAML (global) et Postgres (par tenant) |
 | 5 intentions : request, response, notification, instruction, acknowledgment | Oui, telles quelles | — |

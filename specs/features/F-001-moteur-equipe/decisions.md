@@ -1,6 +1,6 @@
 # F-001 — Décisions à arbitrer
 
-Chaque point bloque une partie de la spec. Une recommandation est proposée ; il suffit de répondre « ok » ou de choisir une autre option.
+Chaque point bloque une partie de la spec (D7 et D8 ajoutés en v0.2). Une recommandation est proposée ; il suffit de répondre « ok » ou de choisir une autre option.
 
 ## D1 — Que se passe-t-il quand le pool mensuel du tenant est épuisé ?
 - (a) Blocage : les agents s'arrêtent jusqu'au mois suivant ou à l'achat d'un pack.
@@ -51,3 +51,15 @@ Le coût réel varie d'un facteur 10 selon le type de token : 0,08 € en cache,
 - (c) Crédits en € (« 15 € de crédit IA inclus »).
 
 **Recommandation : (b).** Le client voit des tokens, la marge est garantie, et le cache bénéficie au client puisqu'il consomme moins de pool.
+
+## D7 — Canal email pour l'humain dans la boucle
+- (a) MVP : notification par email avec lien sécurisé vers la réponse dans l'application. Envoi via Scaleway Transactional Email (Paris).
+- (b) MVP : réponse directement par retour de mail. Nécessite un service de réception d'emails, le parsing des réponses et l'authentification de l'expéditeur (un email se falsifie facilement).
+
+**Recommandation : (a).** (b) en F-007, et jamais pour les validations d'actions irréversibles (lien authentifié obligatoire).
+
+## D8 — Comportement par défaut quand une question reste sans réponse
+- (a) `escalate` vers un administrateur du tenant, puis `abandon_task`.
+- (b) `proceed_with_recommendation` : l'agent applique sa recommandation et le signale.
+
+**Recommandation : (a) par défaut**, (b) activable par agent dans le harnais pour les questions à faible enjeu. Les validations ne sont jamais accordées par défaut, quel que soit le réglage.
