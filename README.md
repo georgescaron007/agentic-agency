@@ -9,6 +9,7 @@ Méthode : **Spec-Driven Development (SDD)**, suivant la synthèse des séminair
 specs/
   00-vision/vision.md               PRD global : problème, cibles, offre, périmètre MVP
   01-architecture/architecture.md   Architecture cible, source de vérité technique
+  02-ux/                            Brief UX/UI, prompts Figma Make, contrat de données TypeScript
   decisions.md                      Registre des décisions d'architecture (ADR)
   features/
     F-001-moteur-equipe/
