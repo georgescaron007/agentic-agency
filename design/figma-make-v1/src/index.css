@@ -1,0 +1,149 @@
+@import "@fontsource/inter/latin-400.css";
+@import "@fontsource/inter/latin-500.css";
+@import "@fontsource/inter/latin-600.css";
+@import "@fontsource/inter/latin-700.css";
+@import "@fontsource/jetbrains-mono/latin-500.css";
+@import "@fontsource/jetbrains-mono/latin-600.css";
+@import "@fontsource/jetbrains-mono/latin-700.css";
+@import "@fontsource/plus-jakarta-sans/latin-700.css";
+@import "@fontsource/plus-jakarta-sans/latin-800.css";
+@import "tailwindcss";
+
+@custom-variant dark (&:where(.dark, .dark *));
+
+:root {
+  color-scheme: light;
+  --color-ink: #0b2545;
+  --color-brand-ink: #0b2545;
+  --color-ink-soft: #183d68;
+  --color-paper: #f8f7f4;
+  --color-surface: #ffffff;
+  --color-teal: #14b8a6;
+  --color-teal-strong: #0f766e;
+  --color-teal-soft: #e5f8f5;
+  --color-lime: #a3e635;
+  --color-action: #3b82f6;
+  --color-action-strong: #1d4ed8;
+  --color-action-soft: #eaf2ff;
+  --color-graphite: #6b7280;
+  --color-graphite-soft: #f1f2f4;
+  --color-line: #e5e7eb;
+  --color-muted: #eef0f2;
+  --color-waiting: #f59e0b;
+  --color-waiting-strong: #92400e;
+  --color-waiting-soft: #fff7df;
+  --color-external: #f97316;
+  --color-external-strong: #c2410c;
+  --color-external-soft: #fff1e8;
+  --color-danger: #dc2626;
+  --color-danger-soft: #fef0f0;
+  --shadow-card: 0 1px 2px rgb(11 37 69 / 0.04), 0 8px 24px rgb(11 37 69 / 0.04);
+}
+
+.dark {
+  color-scheme: dark;
+  --color-ink: #f8f7f4;
+  --color-ink-soft: #244f7d;
+  --color-paper: #071a33;
+  --color-surface: #0f2a4d;
+  --color-teal-strong: #5eead4;
+  --color-teal-soft: #123f47;
+  --color-action-strong: #93c5fd;
+  --color-action-soft: #153b69;
+  --color-graphite: #aeb8c7;
+  --color-graphite-soft: #1c3859;
+  --color-line: #294666;
+  --color-muted: #183858;
+  --color-waiting-strong: #fcd34d;
+  --color-waiting-soft: #49391c;
+  --color-external-strong: #fdba74;
+  --color-external-soft: #4b2d21;
+  --color-danger: #f87171;
+  --color-danger-soft: #48252e;
+  --shadow-card: 0 1px 2px rgb(0 0 0 / 0.16), 0 12px 32px rgb(0 0 0 / 0.12);
+}
+
+.client-sidebar {
+  --color-paper: #f8f7f4;
+  --color-surface: #ffffff;
+}
+
+@theme inline {
+  --font-sans: "Inter", sans-serif;
+  --font-heading: "Plus Jakarta Sans", sans-serif;
+  --font-mono: "JetBrains Mono", monospace;
+  --color-ink: var(--color-ink);
+  --color-brand-ink: var(--color-brand-ink);
+  --color-ink-soft: var(--color-ink-soft);
+  --color-paper: var(--color-paper);
+  --color-surface: var(--color-surface);
+  --color-teal: var(--color-teal);
+  --color-teal-strong: var(--color-teal-strong);
+  --color-teal-soft: var(--color-teal-soft);
+  --color-lime: var(--color-lime);
+  --color-action: var(--color-action);
+  --color-action-strong: var(--color-action-strong);
+  --color-action-soft: var(--color-action-soft);
+  --color-graphite: var(--color-graphite);
+  --color-graphite-soft: var(--color-graphite-soft);
+  --color-line: var(--color-line);
+  --color-muted: var(--color-muted);
+  --color-waiting: var(--color-waiting);
+  --color-waiting-strong: var(--color-waiting-strong);
+  --color-waiting-soft: var(--color-waiting-soft);
+  --color-external: var(--color-external);
+  --color-external-strong: var(--color-external-strong);
+  --color-external-soft: var(--color-external-soft);
+  --color-danger: var(--color-danger);
+  --color-danger-soft: var(--color-danger-soft);
+  --shadow-card: var(--shadow-card);
+  --radius-sm: 0.375rem;
+  --radius-md: 0.5rem;
+  --radius-lg: 0.5rem;
+}
+
+@keyframes status-pulse {
+  0%,
+  100% {
+    box-shadow: 0 0 0 0 rgb(20 184 166 / 0);
+  }
+  50% {
+    box-shadow: 0 0 0 0.25rem rgb(20 184 166 / 0.14);
+  }
+}
+
+@utility animate-status-pulse {
+  animation: status-pulse 2.4s ease-in-out infinite;
+}
+
+* {
+  border-color: var(--color-line);
+}
+
+html {
+  background: var(--color-paper);
+  font-family: var(--font-sans);
+}
+
+body {
+  margin: 0;
+  min-width: 20rem;
+  min-height: 100vh;
+  background: var(--color-paper);
+  -webkit-font-smoothing: antialiased;
+}
+
+button,
+[tabindex="0"] {
+  -webkit-tap-highlight-color: transparent;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    scroll-behavior: auto !important;
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+  }
+}

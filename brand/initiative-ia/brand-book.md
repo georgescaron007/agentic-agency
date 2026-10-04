@@ -1,7 +1,5 @@
 # Initiative IA - Brand Book
 
-> **Usage dans la plateforme Initiative IA (décision du 2026-10-03)** : le terme de marque propriétaire décrit dans ce document (§5) **n'est pas utilisé** dans la plateforme — ni dans l'interface, ni dans les specs, ni dans les prompts. On y parle simplement d'« agents ». Seuls le logo, la palette, la typographie et le système visuel s'appliquent.
-
 
 ## 1. Essence de Marque
 
@@ -17,7 +15,7 @@ Promesse centrale :
 
 Positionnement :
 
-**Initiative IA accompagne les organisations dans la strategie, la conception et l'adoption d'applications IA et d'Akgents capables de produire un impact operationnel mesurable.**
+**Initiative IA accompagne les organisations dans la strategie, la conception et l'adoption d'applications IA et d'agents IA capables de produire un impact operationnel mesurable.**
 
 ## 2. Logo Valide
 
@@ -106,46 +104,9 @@ Exemples de titres :
 - "Ou l'IA cree-t-elle vraiment de la valeur ?"
 - "Quand faut-il creer une application IA sur mesure ?"
 - "Comment passer du prototype a l'adoption ?"
-- "Quels Akgents peuvent renforcer vos equipes ?"
+- "Quels agents IA peuvent renforcer vos equipes ?"
 
-## 5. Mot de Marque : Akgents
-
-Le mot **Akgents** doit etre prescrit et utilise comme un terme proprietaire de l'offre Initiative IA / Yuma.
-
-Definition recommandee :
-
-**Les Akgents sont des agents IA collaboratifs concus pour travailler avec les equipes humaines, orchestrer des taches complexes et accelerer la creation de valeur dans les processus metier.**
-
-Role du mot :
-
-- Differencier Initiative IA d'une offre generique "agents IA".
-- Introduire une notion de collaboration humain + IA.
-- Relier l'offre a une vision plus mature que le simple assistant conversationnel.
-- Creer un territoire reconnaissable dans les contenus, pages web et propositions.
-
-Regles d'ecriture :
-
-- Toujours ecrire **Akgents** avec un A majuscule.
-- Utiliser "Akgents" au pluriel par defaut.
-- Ne pas traduire le mot.
-- Lors de la premiere mention dans un contenu, expliquer : "Akgents, nos agents IA collaboratifs".
-- Ensuite, utiliser simplement "Akgents".
-
-Bonnes formulations :
-
-- "Des Akgents pour renforcer vos equipes, pas les remplacer."
-- "Nous concevons des Akgents autour de vos processus metier."
-- "Chaque Akgent doit avoir un role, une responsabilite et une mesure d'impact."
-- "Les Akgents deviennent utiles lorsqu'ils sont integres aux applications et aux workflows existants."
-
-Formulations a eviter :
-
-- "Nos chatbots IA."
-- "Des robots qui automatisent tout."
-- "Un agent magique pour vos equipes."
-- "Akgent" comme terme isole sans explication dans un premier contact.
-
-## 6. Architecture d'Offre
+## 5. Architecture d'Offre
 
 Les offres doivent toujours partir du business case avant la technologie.
 
@@ -157,7 +118,7 @@ Piliers recommandes :
 2. Applications IA
    Concevoir et developper des applications metier augmentees par l'IA.
 
-3. Akgents
+3. Agents IA
    Creer des agents IA collaboratifs, integres aux processus, outils et equipes.
 
 4. Adoption
@@ -169,7 +130,7 @@ Logique commerciale :
 - Pas de business case, pas de proposition.
 - Pas d'adoption prevue, pas de valeur durable.
 
-## 7. Systeme Visuel
+## 6. Systeme Visuel
 
 Formes :
 
@@ -188,7 +149,7 @@ Iconographie :
 
 - Strategie
 - Applications
-- Akgents
+- Agents IA
 - Adoption
 - Risque
 - Impact
@@ -197,7 +158,7 @@ Iconographie :
 
 Les icones doivent rester lineaires, simples et fonctionnelles. Eviter les illustrations trop narratives.
 
-## 8. Ton Editorial
+## 7. Ton Editorial
 
 Le ton est professionnel, clair, direct et oriente valeur.
 
@@ -213,7 +174,7 @@ Phrases de reference :
 
 - "Nous partons du business case, puis nous construisons la solution."
 - "Une application IA n'a de valeur que si elle change un processus reel."
-- "Les Akgents renforcent les equipes dans les taches complexes et repetitives."
+- "Les agents IA renforcent les equipes dans les taches complexes et repetitives."
 - "L'objectif n'est pas d'automatiser pour automatiser, mais de reduire les frictions operationnelles."
 - "Chaque cas d'usage doit avoir un impact, un proprietaire et une mesure."
 
@@ -224,15 +185,15 @@ A eviter :
 - "Automatisez tout en un clic."
 - "La puissance de l'intelligence artificielle sans effort."
 
-## 9. Messages Cles
+## 8. Messages Cles
 
 Message court :
 
-**Initiative IA transforme les opportunites IA en applications utiles, Akgents collaboratifs et resultats mesurables.**
+**Initiative IA transforme les opportunites IA en applications utiles, agents IA collaboratifs et resultats mesurables.**
 
 Message commercial :
 
-**Nous aidons les organisations a identifier les bons cas d'usage IA, construire les applications ou Akgents adaptes, puis accompagner l'adoption jusqu'a l'impact operationnel.**
+**Nous aidons les organisations a identifier les bons cas d'usage IA, construire les applications ou agents IA adaptes, puis accompagner l'adoption jusqu'a l'impact operationnel.**
 
 Message LinkedIn :
 
@@ -242,11 +203,11 @@ Message page web :
 
 **De la strategie aux applications, Initiative IA vous aide a passer de l'experimentation IA a des solutions adoptees par vos equipes.**
 
-## 10. Usage LinkedIn et AI Search
+## 9. Usage LinkedIn et AI Search
 
 Objectif :
 
-Faire apparaitre Initiative IA dans les recherches liees a agence IA, creation d'applications IA, agents IA, Akgents, automatisation metier et adoption IA.
+Faire apparaitre Initiative IA dans les recherches liees a agence IA, creation d'applications IA, agents IA, automatisation metier et adoption IA.
 
 Format article :
 
@@ -254,7 +215,7 @@ Format article :
 - TLDR au debut.
 - Sous-titres sous forme de questions.
 - Exemples concrets de situations client.
-- Mentions naturelles de Initiative IA et Akgents.
+- Mentions naturelles de Initiative IA.
 - Conclusion avec grille de decision ou criteres de qualification.
 
 Formats posts :
@@ -269,23 +230,23 @@ Exemples de premieres lignes :
 - "Comment choisir une agence IA pour un projet vraiment utile ?"
 - "Quand faut-il creer une application IA sur mesure ?"
 - "Pourquoi la plupart des projets IA restent bloques au stade du prototype ?"
-- "Quels Akgents peuvent vraiment aider vos equipes ?"
+- "Quels agents IA peuvent vraiment aider vos equipes ?"
 - "Comment mesurer l'impact d'un agent IA dans un processus metier ?"
 
-## 11. Applications Prioritaires
+## 10. Applications Prioritaires
 
 Supports a creer en premier :
 
 - Page web "Agence IA".
 - Page web "Creation d'applications IA".
-- Page web "Akgents".
+- Page web "Agents IA".
 - Template LinkedIn article cover.
 - Template carrousel LinkedIn.
 - Slide "Methode Initiative IA".
 - Signature mail.
 - Favicon et photo de profil LinkedIn.
 
-## 12. Direction Creative
+## 11. Direction Creative
 
 Ce que la marque doit faire ressentir :
 
