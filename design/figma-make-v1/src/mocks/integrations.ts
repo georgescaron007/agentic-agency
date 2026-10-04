@@ -1,0 +1,251 @@
+import type {
+  AgentConnectorAccess,
+  Connection,
+  ConnectorType,
+  KnowledgeDocument,
+  OnboardingStep,
+} from "@/contrat-donnees"
+
+export const mockConnectorTypes: ConnectorType[] = [
+  {
+    key: "hubspot",
+    name: "HubSpot",
+    category: "crm",
+    authMethod: "oauth",
+    defaultScope: "shared",
+    tools: [
+      {
+        key: "crm_read",
+        label: "Consulter le CRM",
+        risk: "read",
+        policy: "auto",
+        connectorKey: "hubspot",
+      },
+      {
+        key: "crm_update",
+        label: "Modifier une fiche CRM",
+        risk: "write_external",
+        policy: "ask",
+        connectorKey: "hubspot",
+      },
+    ],
+  },
+  {
+    key: "gmail",
+    name: "Gmail",
+    category: "email",
+    authMethod: "oauth",
+    defaultScope: "per_user",
+    tools: [
+      {
+        key: "email_read",
+        label: "Lire les emails",
+        risk: "read",
+        policy: "auto",
+        connectorKey: "gmail",
+      },
+      {
+        key: "send_email",
+        label: "Envoyer un email",
+        risk: "irreversible",
+        policy: "ask",
+        connectorKey: "gmail",
+      },
+    ],
+  },
+  {
+    key: "sharepoint",
+    name: "SharePoint",
+    category: "documents",
+    authMethod: "oauth",
+    defaultScope: "shared",
+    tools: [
+      {
+        key: "docs_read",
+        label: "Lire des documents",
+        risk: "read",
+        policy: "auto",
+        connectorKey: "sharepoint",
+      },
+    ],
+  },
+]
+
+export const mockConnections: Connection[] = [
+  {
+    id: "cx-01",
+    tenantId: "t-0001",
+    connectorKey: "hubspot",
+    scope: "shared",
+    status: "connected",
+    accountLabel: "dupont-associes.hubspot.com",
+    grantedAccess: "read_write",
+    connectedBy: "u-01",
+    connectedAt: "2026-09-29T10:12:00Z",
+    usedByAgents: ["@nora", "@lina"],
+    requiredBySuites: ["team-commercial-01"],
+  },
+  {
+    id: "cx-02",
+    tenantId: "t-0001",
+    connectorKey: "gmail",
+    scope: "per_user",
+    status: "connected",
+    accountLabel: "sophie@dupont.be",
+    ownerUserId: "u-02",
+    grantedAccess: "read_write",
+    connectedBy: "u-02",
+    connectedAt: "2026-09-30T08:40:00Z",
+    usedByAgents: ["@hugo"],
+    requiredBySuites: ["team-commercial-01"],
+  },
+  {
+    id: "cx-03",
+    tenantId: "t-0001",
+    connectorKey: "gmail",
+    scope: "per_user",
+    status: "not_connected",
+    ownerUserId: "u-01",
+    grantedAccess: "read",
+    usedByAgents: ["@hugo"],
+    requiredBySuites: ["team-commercial-01"],
+  },
+  {
+    id: "cx-04",
+    tenantId: "t-0001",
+    connectorKey: "sharepoint",
+    scope: "shared",
+    status: "expired",
+    accountLabel: "dupont.sharepoint.com",
+    grantedAccess: "read",
+    connectedBy: "u-01",
+    connectedAt: "2026-07-02T09:00:00Z",
+    expiresAt: "2026-10-02T09:00:00Z",
+    lastError: "Autorisation expirée",
+    usedByAgents: ["@hugo"],
+    requiredBySuites: ["team-commercial-01"],
+  },
+]
+
+export const mockAgentConnectorAccess: AgentConnectorAccess[] = [
+  {
+    agent: "@nora",
+    connectorKey: "hubspot",
+    access: "read_write",
+  },
+  {
+    agent: "@hugo",
+    connectorKey: "gmail",
+    access: "read_write",
+    sendAs: "connected_user",
+  },
+  {
+    agent: "@hugo",
+    connectorKey: "sharepoint",
+    access: "read",
+  },
+  {
+    agent: "@lina",
+    connectorKey: "hubspot",
+    access: "read",
+  },
+]
+
+export const mockKnowledge: KnowledgeDocument[] = [
+  {
+    id: "kd-01",
+    tenantId: "t-0001",
+    suiteId: "team-commercial-01",
+    title: "Grille tarifaire 2026",
+    category: "pricing",
+    source: "upload",
+    mimeType: "application/pdf",
+    status: "ready",
+    usedByAgents: ["@hugo"],
+    updatedAt: "2026-09-28T09:00:00Z",
+    reviewBefore: "2026-12-31T00:00:00Z",
+  },
+  {
+    id: "kd-02",
+    tenantId: "t-0001",
+    suiteId: "team-commercial-01",
+    title: "Modèle de proposition commerciale",
+    category: "templates",
+    source: "upload",
+    mimeType:
+      "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+    status: "ready",
+    usedByAgents: ["@hugo"],
+    updatedAt: "2026-09-28T09:05:00Z",
+  },
+  {
+    id: "kd-03",
+    tenantId: "t-0001",
+    title: "Conditions générales de vente",
+    category: "legal",
+    source: "connector",
+    connectorKey: "sharepoint",
+    mimeType: "application/pdf",
+    status: "outdated",
+    usedByAgents: ["@hugo", "@lina"],
+    updatedAt: "2026-06-12T14:00:00Z",
+  },
+  {
+    id: "kd-04",
+    tenantId: "t-0001",
+    suiteId: "team-commercial-01",
+    title: "Catalogue des services",
+    category: "products",
+    source: "upload",
+    mimeType: "application/pdf",
+    status: "processing",
+    usedByAgents: ["@hugo", "@lina"],
+    updatedAt: "2026-10-04T07:30:00Z",
+  },
+]
+
+export const mockOnboarding: OnboardingStep[] = [
+  {
+    key: "connect_crm",
+    label: "Connecter votre CRM",
+    description: "Nora en a besoin pour suivre vos opportunités.",
+    done: true,
+    blocksAgents: ["@nora"],
+    action: { kind: "connect", target: "hubspot" },
+  },
+  {
+    key: "connect_email",
+    label: "Connecter votre messagerie",
+    description:
+      "Hugo prépare et envoie les emails depuis votre adresse, après votre validation.",
+    done: false,
+    blocksAgents: ["@hugo"],
+    action: { kind: "connect", target: "gmail" },
+  },
+  {
+    key: "upload_pricing",
+    label: "Ajouter votre grille tarifaire",
+    description: "Pour des propositions chiffrées justes.",
+    done: true,
+    blocksAgents: [],
+    action: { kind: "upload" },
+  },
+  {
+    key: "reconnect_docs",
+    label: "Reconnecter SharePoint",
+    description:
+      "L’autorisation a expiré : vos conditions générales ne sont plus à jour.",
+    done: false,
+    blocksAgents: [],
+    action: { kind: "connect", target: "sharepoint" },
+  },
+  {
+    key: "invite_team",
+    label: "Inviter votre équipe",
+    description:
+      "Vos collègues pourront converser avec les agents et répondre à leurs questions.",
+    done: false,
+    blocksAgents: [],
+    action: { kind: "invite" },
+  },
+]

@@ -1,0 +1,8 @@
+<svg width="900" height="240" viewBox="0 0 900 240" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <g transform="translate(52 48)">
+    <rect x="0" y="0" width="48" height="144" rx="24" fill="#F8F7F4"/>
+    <path d="M68 34C68 25.2 75.2 18 84 18H103C115.5 18 126.7 25.5 131.5 37.1L178 144H135.5L100 59.5V144H68V34Z" fill="#F8F7F4"/>
+    <path d="M68 72L100 144H68V72Z" fill="#14B8A6"/>
+  </g>
+  <text x="270" y="147" fill="#F8F7F4" font-family="Plus Jakarta Sans, Inter, Arial, sans-serif" font-size="78" font-weight="750" letter-spacing="-2.2">Initiative IA</text>
+</svg>

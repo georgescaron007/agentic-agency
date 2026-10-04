@@ -43,3 +43,10 @@ Statuts : **Accepté** (validé par toi) · **Proposé** (à valider) · **Rempl
 ## ADR-008 — Spécifications en Markdown dans Git, sur deux niveaux
 - **Statut** : Accepté (2026-10-02)
 - **Décision** : niveau global (vision, architecture, ADR) inspiré de BMAD ; niveau fonctionnalité au format léger (`research.md`, `spec.md`, `plan.md`, `decisions.md`).
+
+## ADR-009 — Frontend : SPA React + Vite plutôt que Next.js
+- **Statut** : Proposé
+- **Contexte** : ADR-002 prévoyait Next.js. La maquette Figma Make (`design/figma-make-v1/`) est une SPA React 19 + Vite + Tailwind 4 de ~13 600 lignes. Les deux applications (espace client et back-office) sont derrière authentification : pas de besoin de SEO ni de rendu serveur. Le backend est FastAPI.
+- **Options** : (a) porter la maquette vers Next.js (App Router) ; (b) garder React + Vite en SPA, servie en statique par Caddy, API FastAPI à côté.
+- **Décision proposée** : (b). Reprise quasi directe du code de la maquette, un seul langage côté serveur (Python), déploiement plus simple (fichiers statiques), pas de serveur Node en production. Routage : React Router ; données : TanStack Query + client API typé généré depuis l'OpenAPI de FastAPI.
+- **Conséquences** : mise à jour d'ADR-002, de `CLAUDE.md` (stack frontend) et de l'architecture (service `web` = fichiers statiques servis par Caddy) si accepté.

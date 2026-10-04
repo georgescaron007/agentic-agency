@@ -1,0 +1,10 @@
+{
+  "description": "Create and manage custom AI agents tailored for clients to automate tasks and enhance business efficiency with ease and flexibility.",
+  "robots": {
+    "index": false
+  },
+  "accessibility": {
+    "addBypassLinks": false,
+    "ignoreReducedMotion": false
+  }
+}
