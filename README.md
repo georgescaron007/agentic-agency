@@ -19,6 +19,8 @@ specs/
       plan.md        COMMENT : créé uniquement après validation de spec.md
 brand/initiative-ia/ brand book, logos, planche d'identité
 CLAUDE.md            règles de travail pour Claude Code sur le VPS
+docs/setup-vps.md    mise en place du VPS de développement et de Claude Code
+design/figma-make-v1 maquette de référence (code Figma Make)
 ```
 
 ## Workflow
