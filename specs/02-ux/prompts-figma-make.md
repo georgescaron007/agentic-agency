@@ -282,6 +282,71 @@ BACK-OFFICE
 9. Le logo Initiative IA en haut de la barre latérale du back-office est trop petit : utilise le logo inverse à une hauteur d'environ 28 px.
 ```
 
+---
+
+# Reliquat après la 2e revue (2026-10-04, après-midi)
+
+Constat : P8 est appliqué en grande partie ; **P9 n'a pratiquement pas été pris en compte** ; P10 l'est partiellement. Figma Make traite mal les prompts longs : le reliquat est découpé en 5 prompts courts, à envoyer **un par un**, en vérifiant chaque résultat.
+
+## R1 — Scénario de la conversation « Proposition Dupont SA »
+```
+Corrige uniquement la conversation « Proposition Dupont SA » et les écrans qui la reprennent :
+1. L'utilisateur connecté est Marc Dupont. Le premier message a été écrit par Sophie Martin : affiche-le à GAUCHE, avec avatar rond « SM », le nom « Sophie Martin » et l'heure. Seuls les messages de Marc vont à droite.
+2. La question sur la remise est en attente et bloquante : il ne peut pas y avoir de version finale. Remplace le message de Hugo par : « Le brouillon est prêt. Le montant final dépend de la remise, en attente de votre réponse. » et remplace la pièce jointe + la carte « Livrable » par UNE seule carte document intitulée « Proposition Dupont SA — brouillon v1 », badge « Brouillon ».
+3. Bloc « Travail en cours » : « Hugo — brouillon prêt ✓ », « Nora — historique CRM vérifié ✓ », « Lina — attend votre réponse sur la remise » (ambre).
+4. Sur l'accueil, retire « Proposition Dupont SA » de « Livré cette semaine » (ce n'est pas encore livré).
+5. Dans la carte de question, l'option « 5 % » porte un contour bleu vert et la mention « Recommandé ».
+```
+
+## R2 — Demandes : titres et compteurs
+```
+1. Remplace partout le titre « Premier message envoyé à ce contact : une validation humaine est requise. » par « Envoyer un premier email à Paul Martin (Aster) ». Le motif (« premier contact avec ce destinataire ») apparaît seulement dans le détail de la demande.
+2. Le badge « Demandes » de la navigation, le compteur « N en attente » de la page Demandes et la liste affichée par défaut doivent montrer le même nombre. Par défaut, la liste ne montre que les demandes « En attente » assignées à Marc ; compte la carte « Connexion requise » dans ce total.
+3. Accorde les pluriels : « 1 relance », « 2 relances ».
+4. Une question répondue se replie en une ligne dans la conversation : « Remise : 5 % — répondu par Marc à 16:20 », dépliable.
+```
+
+## R3 — Chiffres (identiques partout)
+```
+Remplace les données chiffrées par celles-ci, dans l'espace client ET le back-office :
+- Forfaits : Petite équipe 149 €/mois, 10 utilisateurs, 15 M crédits ; Business 349 €/mois, 25 utilisateurs, 40 M crédits.
+- Dupont & Associés (Petite équipe, actif) : 2 / 10 utilisateurs, 5,7 M / 15 M crédits (38 %), projection 13,9 M, coût réel 2,70 €. Retire l'alerte « Crédits au-delà de 80 % » pour ce client.
+- Atelier Nova (Business, actif) : 2 / 25 utilisateurs, 34,4 M / 40 M (86 %), coût 16,40 €.
+- Maison Delcourt (Petite équipe, essai) : 1 / 10, 4,1 M / 15 M (27 %), coût 1,90 €.
+- Kanso Services (Business, suspendu) : 0 / 25, 7,2 M / 40 M (18 %), coût 3,40 €.
+- Tableau de bord : « 2 clients actifs sur 4 » ; revenus du mois 498 € ; coût LLM 24,40 € ; infrastructure 30 € ; marge brute 89 %. Alerte crédits : 1 client (Atelier Nova).
+- Supervision : coûts par jour entre 2 € et 5 € (total 24,40 €), coûts par client selon les valeurs ci-dessus ; remplace « Latence p95 780 s » par « Premier token p95 : 780 ms » et ajoute « Durée p95 d'un tour d'agent : 42 s ».
+Ne modifie pas les alias de modèles.
+```
+
+## R4 — Libellés lisibles dans le back-office
+```
+Dans l'éditeur d'agent et partout dans le back-office, aucune valeur technique brute ne doit apparaître comme valeur principale :
+- supervised / autonomous / strict → Supervisé / Autonome / Strict ;
+- escalate → Escalader ; proceed_with_recommendation → Appliquer la recommandation ; abandon_task → Mettre la tâche en pause ;
+- in_app, email → Application, Email (cases à cocher) ;
+- PT4H → 4 heures ; P2D → 2 jours (sélecteurs) ;
+- u-01 → Marc Dupont avec avatar (sélecteur de personne) ;
+- ask_when_uncertain → interrupteur « Poser une question en cas de doute » ;
+- statuts de documents : ready → Prêt, processing → En cours d'analyse, outdated → À mettre à jour ; catégories : pricing → Tarifs, templates → Modèles, legal → Juridique, products → Produits et services ;
+- « Synchronisé depuis sharepoint » → « Synchronisé depuis SharePoint » ;
+- département « commercial » → « Commercial ».
+Les codes techniques (clé, @nom, empreinte) peuvent rester en petit, en police mono, à côté du libellé.
+Dans l'aperçu « Harnais effectif », affiche aussi les libellés (ex. « Comportement : Supervisé », « Échéance : 2 jours »).
+```
+
+## R5 — Pages et cohérences restantes
+```
+1. /app/parametres est vide : crée une page à onglets Utilisateurs, Consommation, Outils connectés, Base de connaissances, Notifications, Affichage (nommage des agents). Les deux pages existantes deviennent des onglets de cette page.
+2. Barre latérale de l'espace client : chaque conversation sur une seule ligne, titre + un seul indicateur à droite (point ambre si demande en attente, sinon triangle bleu vert si nouveau livrable). Retire les icônes et avatars superposés.
+3. Gmail (connexion par collaborateur) : le statut global doit refléter les collaborateurs : « 1 sur 2 connectés » (et non « Non connecté » côté client ni « Connecté » côté back-office). Afficher la même information des deux côtés. Dans le back-office, les boutons « Envoyer une invitation » / « Relancer » n'apparaissent que pour les connexions à faire ou expirées.
+4. Cohérence des statuts : si Hugo est « En attente de connexion », le bloc « Travail en cours » ne peut pas dire qu'il rédige ; garde Hugo « brouillon prêt ✓ » (voir R1) et mets son statut d'équipe à « Inactif — Gmail à connecter pour l'envoi ».
+5. Catalogue des agents (organisation de la suite et page Modèles) : affiche des RÔLES sans prénom (« Coordination commerciale », « Rédaction de propositions », « Suivi CRM »…), groupés par métier ; le prénom se choisit à l'ajout dans une suite. Dans les modèles, remplace « Outils requis » par « Connecteurs requis » (logos HubSpot, Gmail, SharePoint…) adaptés à chaque métier, et ajoute « Documents conseillés ».
+6. Éditeur d'organisation : retire les statuts en direct des nœuds ; affiche le comportement (Supervisé…) et les logos des connecteurs utilisés. Routes affichées dans les deux sens (Lina ⇄ Hugo).
+7. /admin/catalogue : titre « Catalogue » (pas « Outils connectés ») et ajoute les onglets Rôles d'agents, Profils de comportement, Garde-fous, Modèles de prompt.
+8. Le bouton « Utiliser ce modèle » ne fait rien : ouvre l'assistant « Nouvelle suite » en 4 étapes (client et modèle → agents et prénoms → connecteurs et documents requis, avec invitations → interface client), puis l'éditeur de suite en brouillon.
+```
+
 ## Retour du code
 Quand les écrans te conviennent :
 1. Exporte le code du projet (zip), ou connecte Figma Make au dépôt GitHub si l'option est disponible, sur une branche `ux/figma-make-v1`.
