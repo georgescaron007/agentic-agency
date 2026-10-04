@@ -1,6 +1,6 @@
 /**
  * Contrat de données de l'interface — Initiative IA
- * Version 0.2 · 2026-10-03 (conversations, marque blanche, nommage des agents)
+ * Version 0.3 · 2026-10-04 (connecteurs, base de connaissances, démarrage)
  *
  * Source : specs/features/F-001-moteur-equipe/spec.md v0.2 (§4, §5, §6bis, §9, §11).
  * À fournir à Figma Make : les composants reçoivent ces types en props.
@@ -46,7 +46,7 @@ export interface User {
 // ─────────────────────────────── Suites et agents ───────────────────────────────
 
 export type TeamStatus = "running" | "stopped" | "deleted";
-export type AgentStatus = "working" | "waiting_human" | "idle" | "paused" | "error";
+export type AgentStatus = "working" | "waiting_human" | "waiting_connection" | "idle" | "paused" | "error";
 
 /** Agent IA */
 export interface Agent {
@@ -68,6 +68,7 @@ export interface ToolSummary {
   label: string; // "Envoyer un email"
   risk: RiskClass;
   policy: ToolPolicy;
+  connectorKey?: string; // outil fourni par un connecteur, ex. "hubspot"
 }
 
 export type AgentNaming = "first_name_and_role" | "role_only";
@@ -478,3 +479,136 @@ export const mockWorkInProgress: WorkInProgress = {
     { agent: "@lina", label: "attend votre réponse sur la remise", step: 4, state: "waiting_human" },
   ],
 };
+
+// ─────────────────────────────── Connecteurs (F-007) ───────────────────────────────
+
+export type ConnectorCategory = "crm" | "email" | "calendar" | "documents" | "helpdesk" | "accounting" | "code" | "other";
+export type ConnectionStatus = "not_connected" | "pending_invite" | "connected" | "expired" | "error";
+export type ConnectionScope = "shared" | "per_user"; // un compte pour toute l'équipe, ou un compte par collaborateur
+export type AccessLevel = "read" | "read_write";
+
+/** Type d'outil disponible au catalogue (HubSpot, Gmail…) */
+export interface ConnectorType {
+  key: string; // "hubspot"
+  name: string; // "HubSpot"
+  category: ConnectorCategory;
+  logoUrl?: string;
+  authMethod: "oauth" | "api_key";
+  defaultScope: ConnectionScope;
+  tools: ToolSummary[]; // outils que ce connecteur apporte aux agents
+}
+
+/** Connexion d'un client à un outil */
+export interface Connection {
+  id: UUID;
+  tenantId: UUID;
+  connectorKey: string;
+  scope: ConnectionScope;
+  status: ConnectionStatus;
+  accountLabel?: string; // "dupont-associes.hubspot.com" ou "sophie@dupont.be"
+  ownerUserId?: UUID; // si per_user
+  grantedAccess: AccessLevel; // ce que le client a autorisé
+  connectedBy?: UUID;
+  connectedAt?: ISODateTime;
+  expiresAt?: ISODateTime;
+  lastError?: string;
+  usedByAgents: string[]; // ["@nora"]
+  requiredBySuites: UUID[];
+}
+
+/** Restriction propre à un agent sur un connecteur (peut être plus stricte que l'accès accordé) */
+export interface AgentConnectorAccess {
+  agent: string;
+  connectorKey: string;
+  access: AccessLevel;
+  sendAs?: "connected_user" | "shared_account"; // depuis quel compte part l'action
+}
+
+// ─────────────────────────────── Base de connaissances ───────────────────────────────
+
+export type KnowledgeStatus = "processing" | "ready" | "error" | "outdated";
+
+export interface KnowledgeDocument {
+  id: UUID;
+  tenantId: UUID;
+  suiteId?: UUID; // absent = partagé par toutes les suites du client
+  title: string; // "Grille tarifaire 2026"
+  category: "products" | "pricing" | "templates" | "legal" | "procedures" | "other";
+  source: "upload" | "connector";
+  connectorKey?: string; // ex. synchronisé depuis SharePoint
+  mimeType: string;
+  status: KnowledgeStatus;
+  usedByAgents: string[];
+  updatedAt: ISODateTime;
+  reviewBefore?: ISODateTime; // date de revue conseillée
+}
+
+// ─────────────────────────────── Démarrage d'une suite ───────────────────────────────
+
+export interface OnboardingStep {
+  key: string; // "connect_crm"
+  label: string; // "Connecter votre CRM"
+  description: string; // "Nora en a besoin pour suivre vos opportunités."
+  done: boolean;
+  blocksAgents: string[]; // agents en attente tant que l'étape n'est pas faite
+  action: { kind: "connect" | "upload" | "invite" | "conversation"; target?: string };
+}
+
+export const mockConnectorTypes: ConnectorType[] = [
+  {
+    key: "hubspot", name: "HubSpot", category: "crm", authMethod: "oauth", defaultScope: "shared",
+    tools: [
+      { key: "crm_read", label: "Consulter le CRM", risk: "read", policy: "auto", connectorKey: "hubspot" },
+      { key: "crm_update", label: "Modifier une fiche CRM", risk: "write_external", policy: "ask", connectorKey: "hubspot" },
+    ],
+  },
+  {
+    key: "gmail", name: "Gmail", category: "email", authMethod: "oauth", defaultScope: "per_user",
+    tools: [
+      { key: "email_read", label: "Lire les emails", risk: "read", policy: "auto", connectorKey: "gmail" },
+      { key: "send_email", label: "Envoyer un email", risk: "irreversible", policy: "ask", connectorKey: "gmail" },
+    ],
+  },
+  {
+    key: "sharepoint", name: "SharePoint", category: "documents", authMethod: "oauth", defaultScope: "shared",
+    tools: [{ key: "docs_read", label: "Lire des documents", risk: "read", policy: "auto", connectorKey: "sharepoint" }],
+  },
+];
+
+export const mockConnections: Connection[] = [
+  {
+    id: "cx-01", tenantId: "t-0001", connectorKey: "hubspot", scope: "shared", status: "connected",
+    accountLabel: "dupont-associes.hubspot.com", grantedAccess: "read_write", connectedBy: "u-01",
+    connectedAt: "2026-09-29T10:12:00Z", usedByAgents: ["@nora", "@lina"], requiredBySuites: ["team-commercial-01"],
+  },
+  {
+    id: "cx-02", tenantId: "t-0001", connectorKey: "gmail", scope: "per_user", status: "connected",
+    accountLabel: "sophie@dupont.be", ownerUserId: "u-02", grantedAccess: "read_write", connectedBy: "u-02",
+    connectedAt: "2026-09-30T08:40:00Z", usedByAgents: ["@hugo"], requiredBySuites: ["team-commercial-01"],
+  },
+  {
+    id: "cx-03", tenantId: "t-0001", connectorKey: "gmail", scope: "per_user", status: "not_connected",
+    ownerUserId: "u-01", grantedAccess: "read", usedByAgents: ["@hugo"], requiredBySuites: ["team-commercial-01"],
+  },
+  {
+    id: "cx-04", tenantId: "t-0001", connectorKey: "sharepoint", scope: "shared", status: "expired",
+    accountLabel: "dupont.sharepoint.com", grantedAccess: "read", connectedBy: "u-01",
+    connectedAt: "2026-07-02T09:00:00Z", expiresAt: "2026-10-02T09:00:00Z", lastError: "Autorisation expirée",
+    usedByAgents: ["@hugo"], requiredBySuites: ["team-commercial-01"],
+  },
+];
+
+export const mockKnowledge: KnowledgeDocument[] = [
+  { id: "kd-01", tenantId: "t-0001", suiteId: "team-commercial-01", title: "Grille tarifaire 2026", category: "pricing", source: "upload", mimeType: "application/pdf", status: "ready", usedByAgents: ["@hugo"], updatedAt: "2026-09-28T09:00:00Z", reviewBefore: "2026-12-31T00:00:00Z" },
+  { id: "kd-02", tenantId: "t-0001", suiteId: "team-commercial-01", title: "Modèle de proposition commerciale", category: "templates", source: "upload", mimeType: "application/vnd.openxmlformats-officedocument.wordprocessingml.document", status: "ready", usedByAgents: ["@hugo"], updatedAt: "2026-09-28T09:05:00Z" },
+  { id: "kd-03", tenantId: "t-0001", title: "Conditions générales de vente", category: "legal", source: "connector", connectorKey: "sharepoint", mimeType: "application/pdf", status: "outdated", usedByAgents: ["@hugo", "@lina"], updatedAt: "2026-06-12T14:00:00Z" },
+  { id: "kd-04", tenantId: "t-0001", suiteId: "team-commercial-01", title: "Catalogue des services", category: "products", source: "upload", mimeType: "application/pdf", status: "processing", usedByAgents: ["@hugo", "@lina"], updatedAt: "2026-10-04T07:30:00Z" },
+];
+
+export const mockOnboarding: OnboardingStep[] = [
+  { key: "connect_crm", label: "Connecter votre CRM", description: "Nora en a besoin pour suivre vos opportunités.", done: true, blocksAgents: ["@nora"], action: { kind: "connect", target: "hubspot" } },
+  { key: "connect_email", label: "Connecter votre messagerie", description: "Hugo prépare et envoie les emails depuis votre adresse, après votre validation.", done: false, blocksAgents: ["@hugo"], action: { kind: "connect", target: "gmail" } },
+  { key: "upload_pricing", label: "Ajouter votre grille tarifaire", description: "Pour des propositions chiffrées justes.", done: true, blocksAgents: [], action: { kind: "upload" } },
+  { key: "reconnect_docs", label: "Reconnecter SharePoint", description: "L'autorisation a expiré : vos conditions générales ne sont plus à jour.", done: false, blocksAgents: [], action: { kind: "connect", target: "sharepoint" } },
+  { key: "invite_team", label: "Inviter votre équipe", description: "Vos collègues pourront converser avec les agents et répondre à leurs questions.", done: false, blocksAgents: [], action: { kind: "invite" } },
+];

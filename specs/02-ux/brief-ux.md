@@ -1,6 +1,7 @@
 # Brief UX / UI — Initiative IA
 
 Version 0.2 · 2026-10-03 · Statut : **en revue**
+v0.3 (2026-10-04) : outils connectés, base de connaissances et démarrage (§6.5), suite à la revue des maquettes.
 v0.2 : marque Initiative IA, marque blanche côté client, prénoms des agents en option, modèle de conversation avec l'équipe (§6.3).
 Destinataire : conception dans Figma Make, puis retour du code pour intégration (F-005 interface client, F-006 back-office).
 Sources : `00-vision/vision.md` v0.2, `features/F-001-moteur-equipe/spec.md` v0.2.
@@ -213,6 +214,16 @@ Liste des conversations → conversation plein écran ; le bloc « Travail en co
   - « Prénom + rôle » : « Lina · Prospection » ;
   - « Rôle seul » : « Agent Prospection ».
   Le rôle est toujours visible, et la nature d'agent IA toujours explicite (avatar carré, mention « Agent IA ») : un agent ne doit jamais passer pour une personne.
+
+
+### 6.5 Outils connectés, connaissances et démarrage
+Une suite ne sert à rien sans accès aux outils et aux connaissances du client.
+- **Outils connectés** (Paramètres, responsable) : le client connecte lui-même ses outils via la fenêtre d'autorisation de l'outil (OAuth) ; nous ne voyons jamais ses mots de passe. Connexions **partagées** (CRM, documents) ou **personnelles** (messagerie : chaque collaborateur connecte son adresse). Statut, compte, accès accordé, agents concernés, reconnexion.
+- **Base de connaissances** : documents de référence (produits, tarifs, modèles, juridique, procédures), déposés ou synchronisés, avec statut et date de revue.
+- **Pour bien démarrer** : checklist sur l'accueil tant que la suite n'est pas complètement opérationnelle ; un agent bloqué par une connexion manquante est « En attente de connexion » (ambre).
+- **Connexion expirée en cours de travail** : carte « Connexion requise » dans la conversation et dans Demandes.
+- **Traçabilité** : toute action passant par un connecteur affiche l'outil et le compte d'origine (« Envoyé depuis sophie@dupont.be via Gmail »).
+- Back-office : onglets **Connecteurs** et **Connaissances** dans la fiche client (invitation à connecter, jamais de connexion à la place du client), outils groupés par connecteur dans l'éditeur d'agent avec un accès qui ne peut pas dépasser celui accordé par le client.
 
 
 ---

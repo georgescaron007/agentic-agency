@@ -40,6 +40,6 @@ Une évolution d'une fonctionnalité déjà livrée ouvre un **nouveau** dossier
 | F-004 | Département Technique MVP : Tech Lead, Dev Backend, QA | À spécifier |
 | F-005 | API temps réel et interface client (après maquettes Figma Make) | À spécifier |
 | F-006 | Back-office : tenants, suites, configuration des interfaces, supervision | À spécifier |
-| F-007 | Connecteurs métier via MCP (CRM, email, helpdesk) | À spécifier |
+| F-007 | Connecteurs métier (CRM, email, documents, helpdesk) et base de connaissances | À spécifier — prioritaire avant le premier client commercial (UX : brief §6.5) |
 | F-008 | Onboarding : import d'historique (exports ChatGPT / Claude) | Idée, hors MVP |
 | F-009 | Serveur MCP de la plateforme : les agents d'une suite accessibles depuis le compte Claude ou ChatGPT personnel de l'utilisateur | Idée, hors MVP |
